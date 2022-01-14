@@ -1,0 +1,5 @@
+module.exports = {
+    basTokenAddress:'0xC51A675D2f18e9912E3bd67014F0892177A9318C',
+    basAssetAddress:'0x5346aDb387D87009C133c4773deD55Bbc47A595B',
+    basViewAddress:'0x331c08bBd8493d190906aFFcF134691846A4957F'
+}
