@@ -4,7 +4,6 @@ class DnsCacher {
     constructor(){
         
         this.domains = {
-            
         }
     }
 
@@ -24,9 +23,13 @@ class DnsCacher {
 
     get(domainHash){
         let domain =  this.domains[domainHash]
-
         const current = new Date().getTime()
-        return domain && domain.created && (current - domain.created)< this.cacheMillionSeconds ? domain : undefined
+
+        if(domain &&  domain.created && (current - domain.created)< this.cacheMillionSeconds){
+            this.domains[domainHash] = undefined
+        }
+
+        return this.domains[domainHash]
     }
 
     

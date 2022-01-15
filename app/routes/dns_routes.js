@@ -8,14 +8,12 @@ module.exports = function (app,db){
     const web3js = getWeb3js()
     
 
-    app.get('/domain/:text',async(req,resp)=>{
+    app.get('/dns/:domain',async(req,resp)=>{
         try {
-            const domainText = req.params.text
+            const domainText = req.params.domain
             const domainHash = textToHash(domainText)
 
             let ret = db.get(domainHash)
-
-            let needQ = true
 
             if(!ret){
                 ret = await findDomainInfo(domainText,web3js)
@@ -39,7 +37,7 @@ module.exports = function (app,db){
 
     })
  
-    app.get('/domain', async(req,resp)=>{
+    app.get('/dns', async(req,resp)=>{
         console.log(req.body)
 
         resp.send('Please use /domain/text')

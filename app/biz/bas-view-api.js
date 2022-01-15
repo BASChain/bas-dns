@@ -41,7 +41,7 @@ async function findDomainInfo(domainText='',web3js){
     const CName = parseConfHexToString(dnsConf.CName)
   
     dnsConf = { ...dnsConf, ipv4: A, ipv6: AAAA, cname: CName }
-    let host = A || AAAA || CName || ''
+    let host = CName||A || AAAA  || ''
 
     return {...ret,registered:true,dns:dnsConf,host}
 
