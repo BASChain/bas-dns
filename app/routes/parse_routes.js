@@ -14,6 +14,7 @@ module.exports =function(app,db){
     app.get('/parser',async(req,resp)=>{
         let domain = ''
         let bd = req.query && req.query.bd ? req.query.bd : ''
+      
         const originalUrl = `https://${bd}`
         const googleURL = new URL(originalUrl)
         
@@ -22,7 +23,7 @@ module.exports =function(app,db){
         const {q} = queryString.parse(googleURL.search)
 
         if(!q) {
-            resp.send(originalUrl)
+            redirect301(originalUrl)
             return
         }
 
@@ -33,7 +34,7 @@ module.exports =function(app,db){
         }
         
         if(!domain) {
-            resp.send(originalUrl)
+            redirect301(originalUrl)
             return
         }
 
@@ -42,19 +43,27 @@ module.exports =function(app,db){
 
 
         if(ret && ret.host){
-            resp.send(`http://${ret.host}`)
+            redirect301(`http://${ret.host}`)
             return
+       
         }else {
             ret = await findDomainInfo(domain,web3js)
 
             if(ret && ret.registered){
                 db.set(ret,domainHash)
-                resp.send(`http://${ret.host}`)
+                redirect301(`http://${ret.host}`)
                 return
             }
         }
 
-        resp.send(originalUrl)
+        redirect301(originalUrl)
 
+
+        function redirect301(href){
+            resp.writeHead(301,{'Location':href})
+            resp.end()
+            return
+        }
     })
 } 
+
