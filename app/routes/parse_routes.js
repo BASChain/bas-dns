@@ -15,10 +15,10 @@ module.exports =function(app,db){
         let domain = ''
         let bd = req.query && req.query.bd ? req.query.bd : ''
       
-        const originalUrl = `https://${bd}`
-        const googleURL = new URL(originalUrl)
+        let originalUrl = `https://${bd}`
+        originalUrl = originalUrl.replace(/httpb:\/\//,'')
+        const googleURL = new URL(`https://${bd}`)
         
-
         console.log('>>>>>>>>>googleURL>>>>>>>>>>>>>>>',googleURL)
         const {q} = queryString.parse(googleURL.search)
 
@@ -41,7 +41,6 @@ module.exports =function(app,db){
         const domainHash = textToHash(domain)
         let ret = db.get(domainHash)
 
-
         if(ret && ret.host){
             redirect301(`http://${ret.host}`)
             return
@@ -56,7 +55,7 @@ module.exports =function(app,db){
             }
         }
 
-        redirect301(originalUrl)
+        redirect301(domain)
 
 
         function redirect301(href){
