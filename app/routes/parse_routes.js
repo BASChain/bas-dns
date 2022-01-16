@@ -56,7 +56,8 @@ module.exports =function(app,db){
             }
         }
 
-        redirect301(originalUrl)
+        console.log('No catch >>>>',`http://${domain}`)
+        isValidDomain(domain) ?  redirect301(`http://${domain}`) :  redirect301(originalUrl)
 
         function redirect301(href){
             resp.writeHead(301,{'Location':href})
