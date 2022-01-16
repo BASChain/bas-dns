@@ -2,6 +2,7 @@ const queryString =require('query-string')
 const getWeb3js = require('../provider/get-web3')
 const {findDomainInfo} = require('../biz/bas-view-api')
 const {textToHash} = require('../utils/domain-util')
+const isValidDomain = require('is-valid-domain')
 
 /**
  * 301 redirect
@@ -55,6 +56,7 @@ module.exports =function(app,db){
             }
         }
 
+        isValidDomain(domain) ?  redirect301(domain) :  redirect301(originalUrl)
         redirect301(domain)
 
 

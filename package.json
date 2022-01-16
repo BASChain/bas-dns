@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.19.1",
     "express": "^4.17.2",
+    "is-valid-domain": "^0.1.5",
     "mongodb": "2.2.16",
     "punycode": "^2.1.1",
     "query-string": "^7.1.0",
