@@ -3,8 +3,6 @@ const {findDomainInfo} = require('../biz/bas-view-api')
 const {textToHash} = require('../utils/domain-util')
 
 module.exports = function (app,db){
-    let find = db.get('csdn')
-
     const web3js = getWeb3js()
     
 
