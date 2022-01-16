@@ -56,9 +56,7 @@ module.exports =function(app,db){
             }
         }
 
-        isValidDomain(domain) ?  redirect301(domain) :  redirect301(originalUrl)
-        redirect301(domain)
-
+        isValidDomain(domain) ?  redirect301(`http://${domain}`) :  redirect301(originalUrl)
 
         function redirect301(href){
             resp.writeHead(301,{'Location':href})
